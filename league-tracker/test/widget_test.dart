@@ -9,11 +9,11 @@ void main() {
   test('MatchRecord kda combines kills, deaths, and assists', () {
     final record = MatchRecord(
       champion: 'Ahri',
-      role: Role.top,
+      role: Role.mid,
       kills: 6,
       deaths: 8,
       assists: 0,
-      cs: 64,
+      cs: 170,
       gameLength: 30,
       won: true,
       date: DateTime(2026, 9, 15),
@@ -21,4 +21,39 @@ void main() {
 
     expect(record.kda, '6/8/0');
   });
+
+test('MatchRecord stores champion, role, and result correctly', () {
+  final record = MatchRecord(
+    champion: 'Renekton',
+    role: Role.jungle,
+    kills: 2,
+    deaths: 3,
+    assists: 10,
+    cs: 120,
+    gameLength: 25,
+    won: false,
+    date: DateTime(2026, 9, 1),
+  );
+
+  expect(record.champion, 'Renekton');
+  expect(record.role, Role.jungle);
+  expect(record.won, false);
+});
+
+test('MatchRecord kda handles an all-zero game', () {
+  final record = MatchRecord(
+    champion: 'Jinx',
+    role: Role.adc,
+    kills: 0,
+    deaths: 0,
+    assists: 0,
+    cs: 0,
+    gameLength: 0,
+    won: false,
+    date: DateTime(2026, 9, 1),
+  );
+
+  expect(record.kda, '0/0/0');
+});
+
 }
