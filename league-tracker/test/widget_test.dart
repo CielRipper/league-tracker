@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/objects/match_record.dart';
 import 'package:to_dont_list/widgets/match_list_item.dart';
+import 'package:to_dont_list/widgets/match_dialog.dart';
 
 void main() {
   test('MatchRecord kda combines kills, deaths, and assists', () {
@@ -169,6 +170,19 @@ testWidgets('MatchListItem uses red tileColor for a loss', (tester) async {
 
   final tile = tester.widget<ListTile>(find.byType(ListTile));
   expect(tile.tileColor, Colors.red[100]);
+});
+
+
+testWidgets('MatchDialog shows input fields for match details', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchDialog(onMatchAdded: (record) {}),
+    ),
+  ));
+
+  expect(find.byType(TextField), findsNWidgets(6));
+  expect(find.byType(DropdownButton<Role>), findsOneWidget);
+  expect(find.byType(Switch), findsOneWidget);
 });
 
 }
