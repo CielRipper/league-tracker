@@ -24,4 +24,9 @@ class MatchRecord {
   final int gameLength;
   final bool won;
   final DateTime date;
+
+  String get kda => "$kills/$deaths/$assists";
+
+
+
 }
