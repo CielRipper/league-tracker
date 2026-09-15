@@ -25,6 +25,18 @@ class _MatchDialogState extends State<MatchDialog> {
   final TextEditingController _gameLengthController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   bool _won = true;
+
+  Future<void> _pickDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
 }
-
-
