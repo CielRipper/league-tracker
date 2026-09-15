@@ -79,4 +79,96 @@ testWidgets('MatchListItem displays the champion name', (tester) async {
   expect(championFinder, findsOneWidget);
 });
 
+testWidgets('MatchListItem displays the role', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchListItem(
+        record: MatchRecord(
+          champion: 'Ahri',
+          role: Role.mid,
+          kills: 6,
+          deaths: 8,
+          assists: 0,
+          cs: 170,
+          gameLength: 30,
+          won: true,
+          date: DateTime(2026, 9, 15),
+        ),
+      ),
+    ),
+  ));
+
+  final roleFinder = find.text('mid');
+  expect(roleFinder, findsOneWidget);
+});
+
+testWidgets('MatchListItem displays Win for a won match', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchListItem(
+        record: MatchRecord(
+          champion: 'Ahri',
+          role: Role.mid,
+          kills: 6,
+          deaths: 8,
+          assists: 0,
+          cs: 170,
+          gameLength: 30,
+          won: true,
+          date: DateTime(2026, 9, 15),
+        ),
+      ),
+    ),
+  ));
+
+  final winFinder = find.text('Result: Win');
+  expect(winFinder, findsOneWidget);
+});
+
+testWidgets('MatchListItem uses green tileColor for a win', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchListItem(
+        record: MatchRecord(
+          champion: 'Ahri',
+          role: Role.mid,
+          kills: 6,
+          deaths: 8,
+          assists: 0,
+          cs: 170,
+          gameLength: 30,
+          won: true,
+          date: DateTime(2026, 9, 15),
+        ),
+      ),
+    ),
+  ));
+
+  final tile = tester.widget<ListTile>(find.byType(ListTile));
+  expect(tile.tileColor, Colors.green[100]);
+});
+
+testWidgets('MatchListItem uses red tileColor for a loss', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchListItem(
+        record: MatchRecord(
+          champion: 'Ahri',
+          role: Role.mid,
+          kills: 6,
+          deaths: 8,
+          assists: 0,
+          cs: 170,
+          gameLength: 30,
+          won: false,
+          date: DateTime(2026, 9, 15),
+        ),
+      ),
+    ),
+  ));
+
+  final tile = tester.widget<ListTile>(find.byType(ListTile));
+  expect(tile.tileColor, Colors.red[100]);
+});
+
 }
