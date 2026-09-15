@@ -56,4 +56,27 @@ test('MatchRecord kda handles an all-zero game', () {
   expect(record.kda, '0/0/0');
 });
 
+testWidgets('MatchListItem displays the champion name', (tester) async {
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchListItem(
+        record: MatchRecord(
+          champion: 'Ahri',
+          role: Role.mid,
+          kills: 6,
+          deaths: 8,
+          assists: 0,
+          cs: 170,
+          gameLength: 30,
+          won: true,
+          date: DateTime(2026, 9, 15),
+        ),
+      ),
+    ),
+  ));
+
+  final championFinder = find.text('Ahri');
+  expect(championFinder, findsOneWidget);
+});
+
 }
