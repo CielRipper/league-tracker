@@ -39,4 +39,97 @@ class _MatchDialogState extends State<MatchDialog> {
       });
     }
   }
+
+  @override
+Widget build(BuildContext context) {
+  return AlertDialog(
+    title: const Text('Add Match'),
+    content: Column(
+  mainAxisSize: MainAxisSize.min,
+  children: [
+    TextField(
+      controller: _championController,
+      decoration: const InputDecoration(hintText: "champion name"),
+    ),
+    DropdownButton<Role>(
+      value: _selectedRole,
+      items: Role.values
+          .map((r) => DropdownMenuItem(value: r, child: Text(r.name)))
+          .toList(),
+      onChanged: (r) => setState(() => _selectedRole = r!),
+    ),
+    TextField(
+      controller: _killsController,
+      decoration: const InputDecoration(hintText: "kills"),
+      keyboardType: TextInputType.number,
+    ),
+    TextField(
+      controller: _deathsController,
+      decoration: const InputDecoration(hintText: "deaths"),
+      keyboardType: TextInputType.number,
+    ),
+    TextField(
+      controller: _assistsController,
+      decoration: const InputDecoration(hintText: "assists"),
+      keyboardType: TextInputType.number,
+    ),
+    TextField(
+      controller: _csController,
+      decoration: const InputDecoration(hintText: "creep score"),
+      keyboardType: TextInputType.number,
+    ),
+    TextField(
+      controller: _gameLengthController,
+      decoration: const InputDecoration(hintText: "game length (minutes)"),
+      keyboardType: TextInputType.number,
+    ),
+    Row(
+      children: [
+        const Text("Won:"),
+        Switch(
+          value: _won,
+          onChanged: (value) => setState(() => _won = value),
+        ),
+      ],
+    ),
+    TextButton(
+      onPressed: _pickDate,
+      child: Text("Select Date: ${_selectedDate.toLocal().toString().split(' ')[0]}"),
+    ),
+  ],
+),
+    actions: <Widget>[
+  ElevatedButton(
+    key: const Key("OKButton"),
+    onPressed: () {
+      setState(() {
+        widget.onMatchAdded(
+          MatchRecord(
+          champion: _championController.text,
+          role: _selectedRole,
+          kills: int.parse(_killsController.text),
+          deaths: int.parse(_deathsController.text),
+          assists: int.parse(_assistsController.text),
+          cs: int.parse(_csController.text),
+          gameLength: int.parse(_gameLengthController.text),
+          won: _won,
+          date: _selectedDate,
+          ),
+        );
+        Navigator.pop(context);
+      });
+    },
+    child: const Text('OK'),
+  ),
+  ElevatedButton(
+    key: const Key("CancelButton"),
+    child: const Text('Cancel'),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  ),
+  ],
+);
+}
+
 }
