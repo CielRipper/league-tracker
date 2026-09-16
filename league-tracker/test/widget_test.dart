@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/objects/match_record.dart';
 import 'package:to_dont_list/widgets/match_list_item.dart';
 import 'package:to_dont_list/widgets/match_dialog.dart';
