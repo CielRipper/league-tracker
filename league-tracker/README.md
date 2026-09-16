@@ -24,8 +24,12 @@ In-game stats disappear or get buried fast once you've played a lot of matches, 
 - **Clear sort** — reset back to the order you logged matches in
 
 ## Screenshots
- 
-<!-- Add screenshots of the app here -->
+
+![Match list with wins and losses color-coded](images/BaseNoSort.png)
+
+![Adding a new match](images/BaseUiOverlay.png)
+
+![Matches sorted by role](images/BaseWithRoleSort.png)
 
 ## Built with
  
