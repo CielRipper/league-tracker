@@ -31,8 +31,3 @@ In-game stats disappear or get buried fast once you've played a lot of matches, 
  
 - [Flutter](https://flutter.dev/)
 - [Dart](https://dart.dev/)
-
-## License
- 
-See [LICENSE](LICENSE) for details.
- 
