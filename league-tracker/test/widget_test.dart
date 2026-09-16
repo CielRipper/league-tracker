@@ -185,4 +185,30 @@ testWidgets('MatchDialog shows input fields for match details', (tester) async {
   expect(find.byType(Switch), findsOneWidget);
 });
 
+testWidgets('MatchDialog builds a correct MatchRecord and calls onMatchAdded', (tester) async {
+  MatchRecord? capturedRecord;
+
+  await tester.pumpWidget(MaterialApp(
+    home: Scaffold(
+      body: MatchDialog(onMatchAdded: (record) {
+        capturedRecord = record;
+      }),
+    ),
+  ));
+
+  await tester.enterText(find.byType(TextField).at(0), 'Sett'); // champion
+  await tester.enterText(find.byType(TextField).at(1), '6');    // kills
+  await tester.enterText(find.byType(TextField).at(2), '2');    // deaths
+  await tester.enterText(find.byType(TextField).at(3), '4');    // assists
+  await tester.enterText(find.byType(TextField).at(4), '180');  // cs
+  await tester.enterText(find.byType(TextField).at(5), '32');   // gameLength
+
+  await tester.tap(find.text('OK'));
+  await tester.pump();
+
+  expect(capturedRecord, isNotNull);
+  expect(capturedRecord!.champion, 'Sett');
+  expect(capturedRecord!.kills, 6);
+});
+
 }
